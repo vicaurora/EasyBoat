@@ -1,0 +1,50 @@
+Mon application se base sur un serveur local et une base de données locale. Elle ne peut pas marcher sans ce serveur. 
+Désolé de vous faire perdre du temps avec ça, mais je me suis rendu compte de cela quelques jours avant le rendu.
+Si besoin, je peux effectuer la démo de mon appli avec mon ordinateur où tout est configuré le jour de la soutenance.
+
+Sinon, avant de lancer l'application, il faut installer et configurer le serveur et la base de données (c'est assez rapide).
+
+
+*****INSTALLATION******
+
+	apache2, PHP et ses modules :
+
+sudo apt-get install apache2
+sudo apt-get install libapache2-mod-php php php-pgsql
+
+
+	postgresql :
+
+sudo apt-get install postgresql
+
+
+*****CONFIGURATION*****
+
+	apache2 :
+
+copiez collez le fichier index.php (présent dans le même répertoire que ce fichier) dans /var/www/html/ et supprimez le fichier index.html :
+
+sudo cp ./index.php /var/www/html;
+rm -f /var/www/html/index.html;
+
+
+	postgresql :
+
+
+sudo -i -u postgres;
+psql;
+CREATE USER root;
+ALTER ROLE root WITH CREATEDB;
+CREATE DATABASE easyboat OWNER root;
+ALTER USER root WITH ENCRYPTED PASSWORD 'password';
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
+\q
+psql easyboat;
+create table annonce (resume text, nom text, nbplace text, montage text, date text, annee text,description text, clubnom text, clubmail text, clubtel text, id text);
+
+
+Dernière étape : dans les ressources du projet android studio, renseigner l'ip locale (accessible grâce à la commande ifconfig) dans le champs "adresse_ip"
+
+Et voila, tout devrait fonctionner !
+Un dernier point cependant, pour que cela fonctionne, LE TÉLÉPHONE DOIT ETRE CONNECTÉ AU MEME RESEAU WIFI QUE L'ORDINATEUR (si besoin, faire un partage de connexion).
+

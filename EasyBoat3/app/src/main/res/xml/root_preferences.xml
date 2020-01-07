@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <PreferenceCategory app:title="Affichage">
+        <ListPreference
+            android:key="listPref"
+            android:dialogTitle="Choisir la couleur de fond"
+            android:entries="@array/liste_couleurs"
+            android:entryValues="@array/valeurs_couleurs"
+            android:title="Choisir la couleur de fond des annonces" />
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Notifications">
+        <CheckBoxPreference
+            android:key="checkBoxPref"
+            android:title="Activer les notifications"
+            android:summaryOn="Vous recevez une notification lorsqu'une nouvelle anonnce est disponible"
+            android:summaryOff="Vous ne recevez recevez pas de notification lorsqu'une nouvelle anonnce est disponible"
+            android:defaultValue="true"/>
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

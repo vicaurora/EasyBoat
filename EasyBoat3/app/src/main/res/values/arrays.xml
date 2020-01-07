@@ -1,0 +1,15 @@
+<resources>
+    <array name="liste_couleurs">
+        <item>Bleu</item>
+        <item>Rouge</item>
+        <item>Vert</item>
+    </array>
+
+    <array name="valeurs_couleurs">
+
+    <item name="Bleu">#008577</item>
+    <item name="Rouge">#00574B</item>
+    <item name="Vert">#D81B60</item>
+    </array>
+
+</resources>

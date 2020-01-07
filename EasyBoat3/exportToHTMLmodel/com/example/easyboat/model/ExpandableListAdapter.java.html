@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>ExpandableListAdapter.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #808080; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ExpandableListAdapter.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span>com.example.easyboat.model;
+
+<span class="s0">import </span>java.util.HashMap;
+<span class="s0">import </span>java.util.List;
+<span class="s0">import </span>android.content.Context;
+<span class="s0">import </span>android.graphics.Typeface;
+<span class="s0">import </span>android.view.LayoutInflater;
+<span class="s0">import </span>android.view.View;
+<span class="s0">import </span>android.view.ViewGroup;
+<span class="s0">import </span>android.widget.BaseExpandableListAdapter;
+<span class="s0">import </span>android.widget.TextView;
+
+<span class="s0">import </span>com.example.easyboat.R;
+
+<span class="s0">public class </span>ExpandableListAdapter <span class="s0">extends </span>BaseExpandableListAdapter {
+
+    <span class="s0">private </span>Context _context;
+    <span class="s0">private </span>List&lt;String&gt; _listDataHeader; <span class="s2">// header titles</span>
+    // child data in format of header title, child title
+    <span class="s0">private </span>HashMap&lt;String, List&lt;String&gt;&gt; _listDataChild;
+
+    <span class="s0">public </span>ExpandableListAdapter(Context context, List&lt;String&gt; listDataHeader,
+                                 HashMap&lt;String, List&lt;String&gt;&gt; listChildData) {
+        <span class="s0">this</span>._context = context;
+        <span class="s0">this</span>._listDataHeader = listDataHeader;
+        <span class="s0">this</span>._listDataChild = listChildData;
+    }
+
+    @Override
+    <span class="s0">public </span>Object getChild(<span class="s0">int </span>groupPosition, <span class="s0">int </span>childPosititon) {
+        <span class="s0">return this</span>._listDataChild.get(<span class="s0">this</span>._listDataHeader.get(groupPosition))
+                .get(childPosititon);
+    }
+
+    @Override
+    <span class="s0">public long </span>getChildId(<span class="s0">int </span>groupPosition, <span class="s0">int </span>childPosition) {
+        <span class="s0">return </span>childPosition;
+    }
+
+    @Override
+    <span class="s0">public </span>View getChildView(<span class="s0">int </span>groupPosition, <span class="s0">final int </span>childPosition,
+                             <span class="s0">boolean </span>isLastChild, View convertView, ViewGroup parent) {
+
+        <span class="s0">final </span>String childText = (String) getChild(groupPosition, childPosition);
+
+        <span class="s0">if </span>(convertView == <span class="s0">null</span>) {
+            LayoutInflater infalInflater = (LayoutInflater) <span class="s0">this</span>._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_item, <span class="s0">null</span>);
+        }
+
+        TextView txtListChild = (TextView) convertView
+                .findViewById(R.id.lblListItem);
+
+        txtListChild.setText(childText);
+        <span class="s0">return </span>convertView;
+    }
+
+    @Override
+    <span class="s0">public int </span>getChildrenCount(<span class="s0">int </span>groupPosition) {
+        <span class="s0">return this</span>._listDataChild.get(<span class="s0">this</span>._listDataHeader.get(groupPosition))
+                .size();
+    }
+
+    @Override
+    <span class="s0">public </span>Object getGroup(<span class="s0">int </span>groupPosition) {
+        <span class="s0">return this</span>._listDataHeader.get(groupPosition);
+    }
+
+    @Override
+    <span class="s0">public int </span>getGroupCount() {
+        <span class="s0">return this</span>._listDataHeader.size();
+    }
+
+    @Override
+    <span class="s0">public long </span>getGroupId(<span class="s0">int </span>groupPosition) {
+        <span class="s0">return </span>groupPosition;
+    }
+
+    @Override
+    <span class="s0">public </span>View getGroupView(<span class="s0">int </span>groupPosition, <span class="s0">boolean </span>isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        <span class="s0">if </span>(convertView == <span class="s0">null</span>) {
+            LayoutInflater infalInflater = (LayoutInflater) <span class="s0">this</span>._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_group, <span class="s0">null</span>);
+        }
+
+        TextView lblListHeader = (TextView) convertView
+                .findViewById(R.id.lblListHeader);
+        lblListHeader.setTypeface(<span class="s0">null</span>, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
+
+        <span class="s0">return </span>convertView;
+    }
+
+    @Override
+    <span class="s0">public boolean </span>hasStableIds() {
+        <span class="s0">return false</span>;
+    }
+
+    @Override
+    <span class="s0">public boolean </span>isChildSelectable(<span class="s0">int </span>groupPosition, <span class="s0">int </span>childPosition) {
+        <span class="s0">return true</span>;
+    }
+}</pre>
+</body>
+</html>
